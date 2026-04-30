@@ -22,7 +22,7 @@ describe("POST /auth/register", () => {
   it("should register a new user", async () => {
     const response = await request(app).post("/auth/register").send({
       nome: "Test User",
-      email: "newuser@teste.com",
+      email: "newuser10@teste.com",
       senha: "123456",
       telefone: "83999999999",
     });
@@ -35,6 +35,24 @@ describe("POST /auth/register", () => {
       email: "teste@example.com",
       senha: "123456",
       telefone: "83999999999",
+    });
+    expect(response.status).toBe(400);
+  });
+});
+
+describe("POST /auth/login", () => {
+  it("should login an existing user", async () => {
+    const response = await request(app).post("/auth/login").send({
+      email: "thalissons@gmail.com",
+      senha: "123456",
+    });
+    expect(response.status).toBe(200);
+  });
+
+  it("should return an error for incorrect credentials", async () => {
+    const response = await request(app).post("/auth/login").send({
+      email: "thalissons@gmail.com",
+      senha: "123",
     });
     expect(response.status).toBe(400);
   });

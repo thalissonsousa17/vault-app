@@ -9,6 +9,8 @@ app.use(express.json());
 
 app.use("/auth", authRoutes);
 
+console.log("Rotas registradas: /auth/register e /auth/login");
+
 app.get("/", (_req: Request, res: Response) => {
   res.send("Servidor rodando!");
 });
