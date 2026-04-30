@@ -17,3 +17,25 @@ describe("Supabase", () => {
     expect(supabase).not.toBeNull();
   });
 });
+
+describe("POST /auth/register", () => {
+  it("should register a new user", async () => {
+    const response = await request(app).post("/auth/register").send({
+      nome: "Test User",
+      email: "newuser@teste.com",
+      senha: "123456",
+      telefone: "83999999999",
+    });
+    expect(response.status).toBe(201);
+  });
+
+  it("should return an error for existing email", async () => {
+    const response = await request(app).post("/auth/register").send({
+      nome: "Test User",
+      email: "teste@example.com",
+      senha: "123456",
+      telefone: "83999999999",
+    });
+    expect(response.status).toBe(400);
+  });
+});
